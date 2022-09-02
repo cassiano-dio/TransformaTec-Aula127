@@ -45,7 +45,7 @@ public class PhoneController {
         @RequestBody Phone phone
     ){
 
-        Contact _contact = contactRepository.findById(id);
+        Contact _contact = contactRepository.getById(id);
         
         phone.setContact(_contact);
 

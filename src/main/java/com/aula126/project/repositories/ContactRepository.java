@@ -15,7 +15,7 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
     @Query(value = "SELECT * FROM contacts c WHERE c.u_id = :u_id", nativeQuery = true)
     List<Contact> findByUser(@Param("u_id") long id);
 
-    Contact findById(long id);
+    Contact getById(long id);
 
     @Transactional
     void deleteByUserId(long userId);

@@ -1,11 +1,17 @@
 package com.aula126.project.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -32,6 +38,15 @@ public class Contact {
     @JoinColumn(name = "u_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "contact_groups",
+        joinColumns = @JoinColumn(name = "c_id"),
+        inverseJoinColumns = @JoinColumn(name = "g_id")
+    )
+    private List<Group> groups = new ArrayList<>();
 
     public Contact() {
     }
@@ -64,6 +79,14 @@ public class Contact {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
     }
 
 }
